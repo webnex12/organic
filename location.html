@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Le Cèdre | Location & Hours</title>
+    <!-- Google Fonts for professional typography -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+    <!-- Font Awesome 6 (free icons) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #f7f5f0;   /* warm, restaurant-style off-white */
+            font-family: 'Inter', sans-serif;
+            color: #2c2b28;
+            line-height: 1.4;
+        }
+
+        /* elegant container with subtle shadow & border radius */
+        .location-container {
+            max-width: 1280px;
+            margin: 2rem auto;
+            padding: 2rem 2rem 2.5rem;
+            background: #ffffff;
+            border-radius: 32px;
+            box-shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.02);
+        }
+
+        /* header & decorative accent */
+        .page-header {
+            text-align: center;
+            margin-bottom: 2.5rem;
+            position: relative;
+        }
+
+        .page-header h1 {
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: 500;
+            font-size: 3rem;
+            letter-spacing: -0.01em;
+            color: #2e241f;
+            margin-bottom: 0.5rem;
+        }
+
+        .page-header .subhead {
+            font-size: 1rem;
+            font-weight: 400;
+            color: #6b6258;
+            letter-spacing: 0.3px;
+            border-top: 1px solid #e3dbcf;
+            display: inline-block;
+            padding-top: 0.75rem;
+        }
+
+        .accent-line {
+            width: 70px;
+            height: 2px;
+            background: #c7a45b;
+            margin: 1rem auto 0;
+            border-radius: 2px;
+        }
+
+        /* two-column layout (map + info) professional balance */
+        .location-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            margin: 1.5rem 0 1rem;
+        }
+
+        .map-col {
+            flex: 1.5;
+            min-width: 260px;
+        }
+
+        .info-col {
+            flex: 1;
+            min-width: 240px;
+            background: #E9E8E3;
+            border-radius: 24px;
+            padding: 1.5rem 1.8rem;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02), 0 0 0 1px #E9E8E3;
+        }
+
+        /* map styling */
+        .map-wrapper {
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 12px 28px -8px rgba(0, 0, 0, 0.12);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            background: #eae3d8;
+        }
+
+        .map-wrapper:hover {
+            box-shadow: 0 20px 32px -12px rgba(0, 0, 0, 0.2);
+        }
+
+        .map-wrapper iframe {
+            display: block;
+            width: 100%;
+            height: 380px;
+            border: 0;
+        }
+
+        /* button group refined */
+        .button-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-top: 1.5rem;
+            justify-content: flex-start;
+        }
+
+        .btn-map {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.65rem;
+            background: white;
+            border: 1px solid #d9cec0;
+            padding: 0.8rem 1.4rem;
+            border-radius: 60px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: #3c2e26;
+            text-decoration: none;
+            transition: all 0.25s ease;
+            font-family: 'Inter', sans-serif;
+            letter-spacing: 0.2px;
+            backdrop-filter: blur(0px);
+            box-shadow: 0 1px 2px rgba(0,0,0,0.02);
+        }
+
+        .btn-map i {
+            font-size: 1.1rem;
+            color: #849574;
+            transition: color 0.2s;
+        }
+
+        .btn-map:hover {
+            background: #2e241f;
+            border-color: #2e241f;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 18px rgba(0, 0, 0, 0.08);
+        }
+
+        .btn-map:hover i {
+            color: #e9c890;
+        }
+
+        /* info panel details */
+        .info-card h3 {
+            font-size: 1.4rem;
+            font-weight: 600;
+            font-family: 'Cormorant Garamond', serif;
+            color: #2e241f;
+            margin-bottom: 1.2rem;
+            border-left: 4px solid #c7a45b;
+            padding-left: 1rem;
+        }
+
+        .detail-item {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            align-items: flex-start;
+        }
+
+        .detail-icon {
+            width: 2.2rem;
+            font-size: 1.3rem;
+            color: #c7a45b;
+            text-align: center;
+            padding-top: 0.1rem;
+        }
+
+        .detail-text {
+            flex: 1;
+        }
+
+        .detail-text strong {
+            display: block;
+            font-weight: 700;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            color: #8a7a68;
+            margin-bottom: 0.25rem;
+        }
+
+        .detail-text p, .detail-text a {
+            font-size: 1rem;
+            font-weight: 500;
+            color: #2e2a25;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .detail-text a:hover {
+            color: #c7a45b;
+            text-decoration: underline;
+        }
+
+        .hours-list {
+            margin-top: 0.25rem;
+        }
+
+        .hours-row {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.95rem;
+            padding: 0.45rem 0;
+            border-bottom: 1px dashed #ede3d7;
+        }
+
+        .hours-row span:first-child {
+            font-weight: 500;
+            color: #5e5246;
+        }
+
+        .hours-row span:last-child {
+            font-weight: 500;
+            color: #2e241f;
+        }
+
+        .status-badge {
+            display: inline-block;
+            background: #eef4e6;
+            color: #3e6b2f;
+            font-size: 0.7rem;
+            font-weight: 700;
+            padding: 0.2rem 0.7rem;
+            border-radius: 40px;
+            letter-spacing: 0.3px;
+            margin-top: 0.5rem;
+        }
+
+        .small-note {
+            font-size: 0.7rem;
+            color: #9b8e7e;
+            margin-top: 1rem;
+            text-align: center;
+            border-top: 1px solid #ede3d7;
+            padding-top: 1rem;
+        }
+
+        @media (max-width: 750px) {
+            .location-container {
+                margin: 1rem;
+                padding: 1.5rem;
+            }
+            .location-grid {
+                flex-direction: column;
+            }
+            .map-wrapper iframe {
+                height: 300px;
+            }
+            .page-header h1 {
+                font-size: 2.3rem;
+            }
+            .button-group {
+                justify-content: center;
+            }
+            .btn-map {
+                padding: 0.6rem 1.2rem;
+                font-size: 0.85rem;
+            }
+            .info-col {
+                padding: 1.2rem;
+            }
+        }
+
+        .top-nav{
+    position: relative;
+}
+
+/* HAMBURGER BUTTON */
+.menu-toggle {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    width: 55px;
+    height: 55px;
+    border-radius: 50%;
+    background: rgba(0,0,0,0.7);
+    backdrop-filter: blur(10px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 999;
+    transition: 0.3s ease;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+}
+
+.menu-toggle:hover{
+    transform: scale(1.08);
+}
+
+.menu-toggle i{
+    color: white;
+    font-size: 1.3rem;
+}
+
+/* DROPDOWN */
+.nav-menu{
+    position: fixed;
+    top: 90px;
+    right: 20px;
+    width: 220px;
+    background: white;
+    border-radius: 22px;
+    overflow: hidden;
+    display: none;
+    flex-direction: column;
+    z-index: 999;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.18);
+    animation: menuFade 0.25s ease;
+}
+
+.nav-menu a{
+    text-decoration: none;
+    color: #2b2b2b;
+    padding: 18px 20px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-weight: 600;
+    transition: 0.2s;
+}
+
+.nav-menu a i{
+    color: #00aaff;
+}
+
+.nav-menu a:hover{
+    background: #f4f4f4;
+    padding-left: 26px;
+}
+
+/* ACTIVE PAGE */
+.nav-menu a.active{
+    background: #00aaff;
+    color: white;
+}
+
+.nav-menu a.active i{
+    color: white;
+}
+
+@keyframes menuFade{
+    from{
+        opacity:0;
+        transform:translateY(-10px);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+        /* extra polish: hover card effect for info-col */
+        .info-col {
+            transition: all 0.2s;
+        }
+        .info-col:hover {
+            background: #ffffff;
+            box-shadow: 0 12px 24px -12px rgba(0, 0, 0, 0.1);
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 1rem;
+            font-size: 0.7rem;
+            color: #b9ae9f;
+        }
+    </style>
+</head>
+<body>
+    <div class="top-nav">
+
+    <!-- Hamburger Button -->
+    <div class="menu-toggle" onclick="toggleMenu()">
+        <i class="fas fa-bars"></i>
+    </div>
+
+    <!-- Dropdown -->
+    <div class="nav-menu" id="navMenu">
+
+        <a href="index.html">
+            <i class="fas fa-utensils"></i>
+            Menu
+        </a>
+
+        <a href="location.html" class="active">
+            <i class="fas fa-map-marker-alt"></i>
+            Location
+        </a>
+
+    </div>
+
+</div>
+
+<div class="location-container">
+    <div class="page-header">
+        <h1><span style="color: #3e6b2f;"> Our Location </span>· <br>Find <span style="color: #849574;">Us</span></h1>
+        <div class="subhead">Visit our restaurant and enjoy your favorite meals with us</div>
+        <div class="accent-line"></div>
+    </div>
+
+    <div class="location-grid">
+        <!-- LEFT COLUMN: MAP + BUTTONS (professional embed) -->
+        <div class="map-col">
+            <div class="map-wrapper">
+                <!-- original Google Maps embed from prompt (Cupola Sirjbel location) 
+                     but styled with modern overlay, responsive dimensions -->
+                <iframe 
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3322.6655053650065!2d35.476780000000005!3d33.6139824!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x151ee5fe4dbddbed%3A0xfc37498dc0bbd8b8!2sOrganic%20Matcha%20Cafe!5e0!3m2!1sen!2slb!4v1778920874078!5m2!1sen!2slb" 
+                    width="600" 
+                    height="380" 
+                    style="border:0; width:100%; height:100%; min-height: 320px;" 
+                    allowfullscreen="" 
+                    loading="lazy" 
+                    referrerpolicy="no-referrer-when-downgrade"
+                    title="Restaurant location map"
+                    aria-label="Google Map showing Organica Matcha Cafe location">
+                </iframe>
+            </div>
+            <div class="button-group">
+                <a href="https://maps.app.goo.gl/m6q9oB994RXyUzGN9" target="_blank" rel="noopener noreferrer" class="btn-map">
+                    <i class="fas fa-map-marked-alt"></i> Open in Google Maps
+                </a>
+                <a href="https://www.google.com/maps/dir/?api=1&destination=Organic+Matcha+Cafe+Mazboud" target="_blank" rel="noopener noreferrer" class="btn-map">
+                    <i class="fas fa-directions"></i> Get Directions
+                </a>
+            </div>
+            <!-- subtle note: accurate destination -->
+            <div class="small-note" style="margin-top: 1rem; text-align: left; border-top: none; padding-top: 0;">
+                <i class="fas fa-location-dot" style="margin-right: 6px; font-size: 0.7rem;"></i> Exact location: Organic Matcha Cafe, Mazboud — Mount Lebanon
+            </div>
+        </div>
+
+        <!-- RIGHT COLUMN: elegant details, hours, contact -->
+        <div class="info-col">
+            <div class="info-card">
+                <h3><i class="fas fa-utensils" style="font-size: 1.2rem; margin-right: 8px;"></i> Visit us</h3>
+                
+                <div class="detail-item">
+                    <div class="detail-icon"><i class="fas fa-location-dot"></i></div>
+                    <div class="detail-text">
+                        <strong>ADDRESS</strong>
+                        <p>Mazboud, Mount Lebanon<br>Lebanon</p>
+                    </div>
+                </div>
+
+                <div class="detail-item">
+                    <div class="detail-icon"><i class="fas fa-phone-alt"></i></div>
+                    <div class="detail-text">
+                        <strong>RESERVATIONS</strong>
+                        <a href="tel:+96112345678">+961 71455968</a>
+                    </div>
+                </div>
+
+                <div class="detail-item">
+                    <div class="detail-icon"><i class="far fa-clock"></i></div>
+                    <div class="detail-text">
+                        <strong>OPENING HOURS</strong>
+                        <div class="hours-list">
+                            <div class="hours-row"><span>Monday – Thursday</span><span>8:00 AM – 11:00 PM</span></div>
+                            <div class="hours-row"><span>Friday – Saturday</span><span>8:00 AM – 12:0 AM</span></div>
+                            <div class="hours-row"><span>Sunday & Holidays</span><span>8:00 AM – 11:00 PM</span></div>
+                        </div>
+                        <div class="status-badge"><i class="fas fa-check-circle" style="font-size: 0.7rem;"></i> Open today</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- additional restaurant context divider (subtle, professional) -->
+    <div style="margin-top: 2rem; text-align: center; border-top: 1px solid #efe5db; padding-top: 1.3rem;">
+        <p style="font-size: 0.8rem; color: #776c5e; letter-spacing: 0.3px;">
+            <i class="fas fa-map-pin" style="margin-right: 6px;"></i> Mazboud — Mount Lebanon
+        </p>
+        <div style="display: flex; justify-content: center; gap: 2rem; flex-wrap: wrap; margin-top: 0.5rem;">
+            <span style="font-size: 0.75rem;"><i class="fab fa-instagram"></i> @organicmatchacafe</span>
+            <span style="font-size: 0.75rem;"><i class="fab fa-facebook-f"></i> Organic matcha cafe</span>
+        </div>
+    </div>
+</div>
+<footer>
+    © 2026 All Rights Reserved | Webnex
+</footer>
+
+<script>
+function toggleMenu() {
+    const menu = document.getElementById("navMenu");
+
+    if(menu.style.display === "flex"){
+        menu.style.display = "none";
+    } else {
+        menu.style.display = "flex";
+    }
+}
+
+/* close when clicking outside */
+document.addEventListener("click", function(e){
+    const menu = document.getElementById("navMenu");
+    const toggle = document.querySelector(".menu-toggle");
+
+    if(
+        !menu.contains(e.target) &&
+        !toggle.contains(e.target)
+    ){
+        menu.style.display = "none";
+    }
+});
+</script>
+
+</body>
+</html>
