@@ -845,7 +845,7 @@
 
     return hour >= 14 && hour < 20; // 2 PM → 11 PM
 }*/
-        function parseCSV(text) {
+        /*function parseCSV(text) {
     const rows = [];
     let current = '';
     let insideQuotes = false;
@@ -869,7 +869,7 @@
     row.push(current);
     rows.push(row);
     return rows;
-}
+}*/
             // ---------- CONFIG ----------
             // REPLACE WITH YOUR GOOGLE SHEET PUBLISHED CSV URL
             const SHEET_CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTzg10W01sqwe601-17Aykav5NUUiYlW123oyqJuBlBp520TMYGq1qh5DcobKgUk4_AImanTIbOsPFW/pub?output=csv';
@@ -919,7 +919,7 @@
                 try {
                     const resp = await fetch(SHEET_CSV_URL);
                     const csv = await resp.text();
-                    const rows = parseCSV(csv);
+                    const rows = csv.split('\n').map(r => r.split(',').map(cell => cell.trim()));
                     if (rows.length < 2) throw new Error('insufficient rows');
                     rows.shift(); // remove header
 
